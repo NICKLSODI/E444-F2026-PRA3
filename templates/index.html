@@ -1,16 +1,18 @@
 {% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
 
-{% block title %}Index{% endblock %}
-
-{% block styles %}
-    {{ super() }}
-    <style>
-        h1 { color: steelblue; }
-    </style>
-{% endblock %}
+{% block title %}Flasky{% endblock %}
 
 {% block page_content %}
-<h1>Hello, World!</h1>
-<p>The local date and time is {{ moment(current_time).format('LLL') }}.</p>
-<p>That was {{ moment(current_time).fromNow(refresh=True) }}</p>
+<div class="page-header">
+    <h1>Hello, {% if name %}{{ name }}{% else %}Stranger{% endif %}!</h1>
+    {% if email %}
+        {% if 'utoronto' in email %}
+            <p>Your UofT email is {{ email }}</p>
+        {% else %}
+            <p>Please use your UofT email.</p>
+        {% endif %}
+    {% endif %}
+</div>
+{{ wtf.quick_form(form) }}
 {% endblock %}
